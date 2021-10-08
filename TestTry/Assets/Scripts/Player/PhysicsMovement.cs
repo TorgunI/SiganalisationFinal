@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(LayerMask))]
 
 public class PhysicsMovement : MonoBehaviour
 {
