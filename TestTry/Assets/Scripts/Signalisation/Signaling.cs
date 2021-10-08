@@ -7,16 +7,15 @@ using UnityEngine.Events;
 
 public class Signaling : MonoBehaviour
 {
-    private UnityEvent _signaled = new UnityEvent();
-
+    private UnityAction _signaled;
     private AudioSource _audioAlarm;
 
     public bool IsSignaling { get; private set; }
 
     public event UnityAction Signaled
     {
-        add => _signaled.AddListener(value);
-        remove => _signaled.RemoveListener(value);
+        add => _signaled += value;
+        remove => _signaled -= value;
     }
 
     private void Awake()
@@ -28,8 +27,9 @@ public class Signaling : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Player>(out Player player))
+        if (collision.TryGetComponent(out Player player))
         {
+            _audioAlarm.Play();
             _audioAlarm.loop = !IsSignaling;
             IsSignaling = !IsSignaling;
 
